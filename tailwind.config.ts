@@ -51,6 +51,13 @@ const config: Config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        ethereal: {
+          dark: "#0a0a12",     // Deep space black/blue
+          indigo: "#1a1a2e",   // Dark indigo background
+          peach: "#ff9a8b",    // Accent peach
+          purple: "#9d4edd",   // Accent purple
+          green: "#68a063",    // Accent green
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

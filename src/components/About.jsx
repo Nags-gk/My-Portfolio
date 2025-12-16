@@ -34,15 +34,15 @@ const About = () => {
                     </motion.div>
 
                     {/* Image (Right) */}
-                    <div className="md:w-1/2 flex justify-center md:justify-start">
+                    <div className="md:w-1/2 flex justify-center md:justify-center">
                         <div className="relative group">
                             {/* Solid border instead of glow */}
                             <div className="absolute -inset-1 bg-white/10 rounded-2xl"></div>
-                            <div className="relative rounded-2xl overflow-hidden shadow-2xl max-w-md w-full border border-white/10 bg-zinc-800">
+                            <div className="relative rounded-2xl overflow-hidden shadow-2xl max-w-sm w-full border border-white/10 bg-zinc-800">
                                 <img
                                     src="/profile-about.jpg"
                                     alt="Nagaraj Gireppa Kanni"
-                                    className="object-cover w-full h-auto max-h-[500px]"
+                                    className="object-cover w-full h-auto"
                                 />
                             </div>
                         </div>

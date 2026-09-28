@@ -1,17 +1,9 @@
 'use client';
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
-import { Github, Linkedin, Mail, ArrowUpRight, ArrowRight, Download, Sun, Moon, X } from 'lucide-react';
+import { Github, Linkedin, Mail, ArrowUpRight, ArrowRight, Download, Sun, Moon } from 'lucide-react';
 import Panel from './desktop/Panel';
 import { notes } from '@/lib/notes';
-
-import unisysImg from '../assets/certificates/unisys-qml.png';
-import umichImg from '../assets/certificates/umich-python.png';
-import ciscoIotImg from '../assets/certificates/cisco-iot.png';
-import ciscoCyberImg from '../assets/certificates/cisco-cyber.png';
-import sparksImg from '../assets/certificates/sparks-internship.png';
-import linkedinSqlImg from '../assets/certificates/linkedin-sql.png';
 
 const skillCategories = [
   { name: 'Languages', items: ['Python', 'JavaScript', 'TypeScript', 'Java'] },
@@ -69,15 +61,6 @@ const projects = [
   { title: 'Personal Website', stack: 'HTML · CSS · JS', outcome: 'Shipped', link: 'https://github.com/Nags-gk/my-website-repo', kind: 'earlier portfolio' },
 ];
 
-const certificates = [
-  { name: 'Quantum ML Research', issuer: 'Unisys', image: unisysImg },
-  { name: 'Python for Everybody', issuer: 'Univ. of Michigan', image: umichImg },
-  { name: 'Intro to IoT', issuer: 'Cisco', image: ciscoIotImg },
-  { name: 'Intro to Cybersecurity', issuer: 'Cisco', image: ciscoCyberImg },
-  { name: 'Rotational Internship', issuer: 'Sparks Foundation', image: sparksImg },
-  { name: 'SQL Programming', issuer: 'LinkedIn Learning', image: linkedinSqlImg },
-];
-
 const MENUBAR_ITEMS = ['about', 'skills', 'experience', 'education', 'projects', 'notes'];
 const TITLES = {
   about: 'About.app',
@@ -85,14 +68,12 @@ const TITLES = {
   experience: 'Experience.app',
   education: 'Education.app',
   projects: 'Projects — Finder',
-  certificates: 'Certificates — Finder',
   notes: 'Notes.app',
 };
 
 const Desktop = () => {
   const [copied, setCopied] = useState(false);
   const [theme, setTheme] = useState('light');
-  const [lightboxCert, setLightboxCert] = useState(null);
 
   useEffect(() => {
     // Synced from the DOM attribute a pre-hydration <script> in layout.tsx
@@ -112,15 +93,6 @@ const Desktop = () => {
     }
     setTheme(next);
   };
-
-  useEffect(() => {
-    if (!lightboxCert) return;
-    const onKey = (e) => {
-      if (e.key === 'Escape') setLightboxCert(null);
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [lightboxCert]);
 
   const handleCopy = async () => {
     try {
@@ -160,6 +132,9 @@ const Desktop = () => {
                 {TITLES[id].replace('.app', '').replace('.txt', '').replace(' — Finder', '')}
               </a>
             ))}
+            <Link href="/certificates" className="hover:text-ink transition-colors">
+              Certificates
+            </Link>
           </nav>
           <div className="flex items-center gap-3 shrink-0">
             <a
@@ -259,15 +234,18 @@ const Desktop = () => {
           </div>
         </Panel>
 
-        <Panel id="projects" title={TITLES.projects} area="projects" index={4}>
-          <div className="h-full overflow-y-auto pr-1">
+        <Panel id="projects" title={TITLES.projects} area="projects" index={5}>
+          {/* Multi-column, no internal scroll — every title fits in the row's
+              fixed height by reading down each column before wrapping to the
+              next, like a real Finder column view. */}
+          <div className="h-full columns-1 sm:columns-2 lg:columns-3 gap-x-8">
             {projects.map((p) => (
               <a
                 key={p.title}
                 href={p.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex justify-between items-center py-1.5 border-b border-line last:border-b-0 group"
+                className="flex justify-between items-center py-1.5 border-b border-line group break-inside-avoid-column"
               >
                 <span className="flex items-center gap-1.5 min-w-0">
                   <span className="font-display font-semibold text-[12px] group-hover:text-accent transition-colors truncate">{p.title}</span>
@@ -282,20 +260,7 @@ const Desktop = () => {
           </div>
         </Panel>
 
-        <Panel id="certificates" title={TITLES.certificates} area="certificates" index={5}>
-          <div className="grid grid-cols-2 gap-2.5 h-full overflow-y-auto">
-            {certificates.map((c) => (
-              <button key={c.name} onClick={() => setLightboxCert(c)} className="text-left group">
-                <div className="relative w-full aspect-[4/3] rounded-md overflow-hidden border border-line mb-1">
-                  <Image src={c.image} alt={c.name} fill sizes="150px" className="object-cover transition-transform duration-300 group-hover:scale-105" />
-                </div>
-                <p className="font-display font-semibold text-[10px] leading-tight group-hover:text-accent transition-colors">{c.name}</p>
-              </button>
-            ))}
-          </div>
-        </Panel>
-
-        <Panel id="notes" title={TITLES.notes} area="notes" index={6}>
+        <Panel id="notes" title={TITLES.notes} area="notes" index={4}>
           <div className="h-full flex flex-col">
           <p className="font-mono text-[9.5px] uppercase tracking-wide text-dim mb-2 shrink-0">Deep dives — click a title</p>
           <div className="flex-1 min-h-0 overflow-y-auto pr-1">
@@ -313,31 +278,6 @@ const Desktop = () => {
           </div>
         </Panel>
       </div>
-
-      {lightboxCert && (
-        <div
-          className="lightbox-backdrop"
-          onClick={() => setLightboxCert(null)}
-          role="dialog"
-          aria-modal="true"
-          aria-label={lightboxCert.name}
-        >
-          <div className="relative max-w-2xl w-full" onClick={(e) => e.stopPropagation()}>
-            <button
-              onClick={() => setLightboxCert(null)}
-              aria-label="Close"
-              className="absolute -top-10 right-0 text-white/70 hover:text-white transition-colors"
-            >
-              <X size={22} />
-            </button>
-            <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden bg-win">
-              <Image src={lightboxCert.image} alt={lightboxCert.name} fill sizes="700px" className="object-contain" />
-            </div>
-            <p className="font-display font-semibold text-white text-sm mt-3">{lightboxCert.name}</p>
-            <p className="font-mono text-[11px] text-white/60">{lightboxCert.issuer}</p>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

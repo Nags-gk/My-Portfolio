@@ -171,8 +171,8 @@
   grid-template-rows: repeat(3, 1fr);
   grid-template-areas:
     "about about about skills skills skills"
-    "experience experience education education projects projects"
-    "certificates certificates certificates notes notes notes";
+    "experience experience education education notes notes"
+    "projects projects projects projects projects projects";
   gap: 14px;
   padding: 14px;
   max-width: 1400px;
@@ -184,13 +184,12 @@
 @media (max-width: 1024px) {
   .desktop-grid {
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(5, minmax(220px, auto));
+    grid-template-rows: repeat(4, minmax(220px, auto));
     grid-template-areas:
       "about about"
       "skills experience"
-      "education projects"
-      "certificates certificates"
-      "notes notes";
+      "education notes"
+      "projects projects";
     height: auto;
     overflow: visible;
   }
@@ -207,7 +206,6 @@
       "experience"
       "education"
       "projects"
-      "certificates"
       "notes";
   }
 }

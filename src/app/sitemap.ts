@@ -16,6 +16,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 1,
     },
+    {
+      url: `${siteUrl}/certificates`,
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    },
     ...noteEntries,
   ];
 }

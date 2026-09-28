@@ -36,7 +36,7 @@ export default async function NotePage({ params }: { params: Promise<{ slug: str
           Back to desktop
         </Link>
 
-        <p className="font-mono text-[11px] uppercase tracking-wide text-accent mb-3">Notes.app</p>
+        <p className="font-mono text-[11px] uppercase tracking-wide text-accent mb-3">My Work.app</p>
         <h1 className="font-display font-bold text-3xl sm:text-4xl mb-4 text-balance">{note.title}</h1>
 
         <div className="flex flex-wrap gap-2 mb-10">

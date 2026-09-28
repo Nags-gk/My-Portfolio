@@ -43,7 +43,7 @@ const education = [
 
 // `kind` is a one-line honest reason a project isn't one of the five Notes
 // deep-dives — context, not a demotion. Featured projects (Taxbot, Snooptrade,
-// Quantum ML Research, Canvas-Go, Bitsmart) omit it; their case is in Notes.app.
+// Quantum ML Research, Canvas-Go, Bitsmart) omit it; their case is in My Work.app.
 const projects = [
   { title: 'Taxbot', stack: 'LangChain · RAG · Gemini', outcome: '90% accuracy', link: 'https://github.com/Nags-gk/Taxbot' },
   { title: 'Snooptrade', stack: 'FastAPI · AWS', outcome: 'Real-time', link: 'https://github.com/Nags-gk/SnoopTrade' },
@@ -68,7 +68,7 @@ const TITLES = {
   experience: 'Experience.app',
   education: 'Education.app',
   projects: 'Projects — Finder',
-  notes: 'Notes.app',
+  notes: 'My Work.app',
 };
 
 const Desktop = () => {
@@ -262,19 +262,19 @@ const Desktop = () => {
 
         <Panel id="notes" title={TITLES.notes} area="notes" index={4}>
           <div className="h-full flex flex-col">
-          <p className="font-mono text-[9.5px] uppercase tracking-wide text-dim mb-2 shrink-0">Deep dives — click a title</p>
-          <div className="flex-1 min-h-0 overflow-y-auto pr-1">
-            {notes.map((n) => (
-              <Link
-                key={n.slug}
-                href={`/notes/${n.slug}`}
-                className="flex justify-between items-center py-2 border-b border-line last:border-b-0 group"
-              >
-                <span className="font-display font-semibold text-[13px] group-hover:text-accent transition-colors">{n.title}</span>
-                <ArrowRight size={13} className="text-dim group-hover:text-accent group-hover:translate-x-0.5 transition-all" />
-              </Link>
-            ))}
-          </div>
+            <p className="font-mono text-[9px] uppercase tracking-wide text-dim mb-1 shrink-0">Deep dives — click a title</p>
+            <div className="flex-1 min-h-0 flex flex-col justify-between overflow-hidden">
+              {notes.map((n) => (
+                <Link
+                  key={n.slug}
+                  href={`/notes/${n.slug}`}
+                  className="flex justify-between items-center py-1 border-b border-line last:border-b-0 group"
+                >
+                  <span className="font-display font-semibold text-[12.5px] group-hover:text-accent transition-colors">{n.title}</span>
+                  <ArrowRight size={12} className="text-dim group-hover:text-accent group-hover:translate-x-0.5 transition-all" />
+                </Link>
+              ))}
+            </div>
           </div>
         </Panel>
       </div>

@@ -162,12 +162,9 @@ const Desktop = () => {
           <div className="h-full overflow-hidden grid sm:grid-cols-[1.3fr_1fr] gap-x-6 gap-y-4">
             <div>
               <h2 className="font-display font-bold text-lg mb-2">Nagaraj G. Kanni</h2>
-              <p className="text-[13.5px] leading-relaxed text-ink-soft mb-3">
+              <p className="text-[13.5px] leading-relaxed text-ink-soft">
                 Software Engineer — applied ML and full-stack systems. Formerly a Quantum Machine Learning researcher at Unisys, now building RAG assistants, analytics pipelines, and cloud-deployed products.
               </p>
-              <div className="flex flex-wrap gap-1.5">
-                <span className="font-mono text-[10px] bg-surface-soft border border-line rounded-[5px] px-2 py-1">San Jose, CA</span>
-              </div>
             </div>
             <div className="sm:border-l sm:border-line sm:pl-6">
               <p className="font-mono text-[9.5px] uppercase tracking-wide text-dim mb-2">Contact</p>

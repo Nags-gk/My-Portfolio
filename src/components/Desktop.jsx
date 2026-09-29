@@ -171,7 +171,7 @@ const Desktop = () => {
             </div>
             <div className="sm:border-l sm:border-line sm:pl-6">
               <p className="font-mono text-[9.5px] uppercase tracking-wide text-dim mb-2">Contact</p>
-              <p className="text-[13px] mb-3">nagarajgk50@gmail.com<br />+1 408 210 2658</p>
+              <p className="text-[13px] mb-3">nagarajgk50@gmail.com<br />+1 408 210 2658<br />San Jose, CA</p>
               <div className="flex flex-wrap gap-2">
                 <button onClick={handleCopy} className="inline-flex items-center gap-1.5 bg-solid text-solid-fg font-mono text-[11px] px-3 py-1.5 rounded-md hover:bg-accent hover:text-white transition-colors">
                   <Mail size={12} />{copied ? 'Copied ✓' : 'Copy email'}

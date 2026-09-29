@@ -1,15 +1,313 @@
 @import "tailwindcss";
 
 @theme {
-  --color-ethereal-dark: #0a0a12;
-  --color-ethereal-indigo: #1a1a2e;
-  --color-ethereal-peach: #ff9a8b;
-  --color-ethereal-purple: #9d4edd;
-  --color-ethereal-green: #68a063;
+  --color-desktop: #e8e6e1;
+  --color-win: #ffffff;
+  --color-bar: #f4f3f0;
+  --color-ink: #1a1a1a;
+  --color-ink-soft: #3a382f;
+  --color-dim: #767267;
+  --color-accent: #ff4d4d;
+  --color-line: #d9d6cf;
+  --color-surface-soft: #f2f1ec;
+  --color-highlight: #fff1f1;
+
+  /* solid buttons intentionally invert with theme, independent of --color-ink
+     (which is the *text* color and flips the other way) */
+  --color-solid: #1a1a1a;
+  --color-solid-fg: #ffffff;
+
+  --font-display: var(--font-outfit), "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-work-sans), "Work Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* ---- dark theme: explicit choice (data-theme) or system preference ---- */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-desktop: #1c1b19;
+    --color-win: #242320;
+    --color-bar: #2a2925;
+    --color-ink: #f0ede5;
+    --color-ink-soft: #c9c4b8;
+    --color-dim: #9a948a;
+    --color-accent: #ff6a6a;
+    --color-line: #3a3834;
+    --color-surface-soft: #2f2e2a;
+    --color-highlight: rgba(255, 106, 106, 0.14);
+    --color-solid: #f0ede5;
+    --color-solid-fg: #1a1a1a;
+  }
+}
+:root[data-theme="dark"] {
+  --color-desktop: #1c1b19;
+  --color-win: #242320;
+  --color-bar: #2a2925;
+  --color-ink: #f0ede5;
+  --color-ink-soft: #c9c4b8;
+  --color-dim: #9a948a;
+  --color-accent: #ff6a6a;
+  --color-line: #3a3834;
+  --color-surface-soft: #2f2e2a;
+  --color-highlight: rgba(255, 106, 106, 0.14);
+  --color-solid: #f0ede5;
+  --color-solid-fg: #1a1a1a;
 }
 
 @layer base {
+  * {
+    border-color: var(--color-line);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
-    @apply bg-ethereal-dark text-white;
+    background: var(--color-desktop);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ---- wallpaper ---- */
+.wallpaper {
+  position: fixed;
+  inset: -80px;
+  z-index: 0;
+  pointer-events: none;
+  filter: blur(50px);
+  background:
+    radial-gradient(ellipse 900px 700px at 12% -10%, rgba(255, 138, 101, 0.6), transparent 60%),
+    radial-gradient(ellipse 800px 800px at 100% 0%, rgba(255, 77, 77, 0.42), transparent 55%),
+    radial-gradient(ellipse 900px 700px at 90% 100%, rgba(123, 141, 255, 0.42), transparent 55%),
+    radial-gradient(ellipse 1000px 800px at 0% 100%, rgba(255, 209, 128, 0.5), transparent 55%),
+    linear-gradient(160deg, #f4efe8 0%, #ece5da 55%, #e6ded1 100%);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .wallpaper {
+    background:
+      radial-gradient(ellipse 900px 700px at 12% -10%, rgba(255, 106, 106, 0.22), transparent 60%),
+      radial-gradient(ellipse 800px 800px at 100% 0%, rgba(255, 77, 77, 0.16), transparent 55%),
+      radial-gradient(ellipse 900px 700px at 90% 100%, rgba(90, 100, 200, 0.2), transparent 55%),
+      radial-gradient(ellipse 1000px 800px at 0% 100%, rgba(180, 140, 60, 0.18), transparent 55%),
+      linear-gradient(160deg, #171614 0%, #131211 55%, #100f0e 100%);
+  }
+}
+:root[data-theme="dark"] .wallpaper {
+  background:
+    radial-gradient(ellipse 900px 700px at 12% -10%, rgba(255, 106, 106, 0.22), transparent 60%),
+    radial-gradient(ellipse 800px 800px at 100% 0%, rgba(255, 77, 77, 0.16), transparent 55%),
+    radial-gradient(ellipse 900px 700px at 90% 100%, rgba(90, 100, 200, 0.2), transparent 55%),
+    radial-gradient(ellipse 1000px 800px at 0% 100%, rgba(180, 140, 60, 0.18), transparent 55%),
+    linear-gradient(160deg, #171614 0%, #131211 55%, #100f0e 100%);
+}
+
+/* ---- menu bar ---- */
+.menubar {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--color-line);
+  position: relative;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .menubar {
+    background: rgba(28, 27, 25, 0.55);
+  }
+}
+:root[data-theme="dark"] .menubar {
+  background: rgba(28, 27, 25, 0.55);
+}
+
+/* ---- shell: exact-viewport (no page scroll) above 1024px, natural scroll below ---- */
+.desktop-shell {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+@media (max-width: 1024px) {
+  .desktop-shell {
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
+  }
+}
+
+/* ---- fixed, non-overlapping desktop grid ---- */
+.desktop-grid {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-areas:
+    "about about about skills skills skills"
+    "experience experience education education notes notes"
+    "projects projects projects projects projects projects";
+  gap: 14px;
+  padding: 14px;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 1024px) {
+  .desktop-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, minmax(220px, auto));
+    grid-template-areas:
+      "about about"
+      "skills experience"
+      "education notes"
+      "projects projects";
+    height: auto;
+    overflow: visible;
+  }
+}
+
+@media (max-width: 680px) {
+  .desktop-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+    grid-auto-rows: minmax(220px, auto);
+    grid-template-areas:
+      "about"
+      "skills"
+      "experience"
+      "education"
+      "projects"
+      "notes";
+  }
+}
+
+/* ---- panel chrome (static — no window controls) ---- */
+.panel {
+  background: var(--color-win);
+  border: 1px solid var(--color-line);
+  border-radius: 10px;
+  box-shadow: 0 12px 28px -10px rgba(0, 0, 0, 0.18);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* menubar nav on desktop has nothing to scroll to, so it draws the eye
+   to the target panel instead — a stand-in for the anchor jump */
+@keyframes spotlight-pulse {
+  0% {
+    box-shadow: 0 12px 28px -10px rgba(0, 0, 0, 0.18), 0 0 0 0 rgba(255, 77, 77, 0.55);
+  }
+  35% {
+    box-shadow: 0 12px 28px -10px rgba(0, 0, 0, 0.18), 0 0 0 5px rgba(255, 77, 77, 0.28);
+  }
+  100% {
+    box-shadow: 0 12px 28px -10px rgba(0, 0, 0, 0.18), 0 0 0 0 rgba(255, 77, 77, 0);
+  }
+}
+.panel-spotlight {
+  animation: spotlight-pulse 0.9s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.panel-bar {
+  background: var(--color-bar);
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--color-line);
+  flex-shrink: 0;
+}
+.panel-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--color-ink-soft);
+}
+.panel-content {
+  padding: 16px;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+}
+
+@media (max-width: 1024px) {
+  .panel {
+    min-height: 220px;
+  }
+}
+
+@layer utilities {
+  .hairline {
+    border: 1px solid var(--color-line);
+  }
+}
+
+/* ---- lightbox (certificates) ---- */
+.lightbox-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+/* ---- print: a resume-adjacent, ink-friendly rendering ---- */
+@media print {
+  .wallpaper,
+  .menubar,
+  .lightbox-backdrop {
+    display: none !important;
+  }
+  .desktop-shell {
+    height: auto !important;
+    overflow: visible !important;
+  }
+  .desktop-grid {
+    display: block !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+  }
+  .panel {
+    box-shadow: none !important;
+    border: 1px solid #ccc !important;
+    break-inside: avoid;
+    margin-bottom: 12px;
+  }
+  .panel-content {
+    overflow: visible !important;
+  }
+  body {
+    background: #fff !important;
+    color: #000 !important;
   }
 }

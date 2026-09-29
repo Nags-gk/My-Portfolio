@@ -159,7 +159,7 @@ const Desktop = () => {
 
       <div className="desktop-grid">
         <Panel id="about" title={TITLES.about} area="about" index={0}>
-          <div className="h-full overflow-y-auto grid sm:grid-cols-[1.3fr_1fr] gap-x-6 gap-y-4">
+          <div className="h-full overflow-hidden grid sm:grid-cols-[1.3fr_1fr] gap-x-6 gap-y-4">
             <div>
               <h2 className="font-display font-bold text-lg mb-2">Nagaraj G. Kanni</h2>
               <p className="text-[13.5px] leading-relaxed text-ink-soft mb-3">
@@ -167,7 +167,6 @@ const Desktop = () => {
               </p>
               <div className="flex flex-wrap gap-1.5">
                 <span className="font-mono text-[10px] bg-surface-soft border border-line rounded-[5px] px-2 py-1">San Jose, CA</span>
-                <span className="font-mono text-[10px] bg-surface-soft border border-line rounded-[5px] px-2 py-1">Open to 2026 roles</span>
               </div>
             </div>
             <div className="sm:border-l sm:border-line sm:pl-6">
@@ -189,12 +188,12 @@ const Desktop = () => {
         </Panel>
 
         <Panel id="skills" title={TITLES.skills} area="skills" index={1}>
-          <div className="grid grid-cols-2 gap-x-4 gap-y-3 h-full overflow-y-auto">
+          <div className="grid grid-cols-3 gap-x-4 gap-y-2 h-full overflow-hidden">
             {skillCategories.map((cat) => (
               <div key={cat.name}>
-                <p className="font-mono text-[9.5px] uppercase tracking-wide text-accent mb-1">{cat.name}</p>
+                <p className="font-mono text-[9.5px] uppercase tracking-wide text-accent mb-0.5">{cat.name}</p>
                 {cat.items.map((item) => (
-                  <p key={item} className="font-display font-medium text-[12.5px] leading-[1.5]">{item}</p>
+                  <p key={item} className="font-display font-medium text-[12px] leading-[1.3]">{item}</p>
                 ))}
               </div>
             ))}
